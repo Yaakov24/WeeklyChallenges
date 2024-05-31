@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Xml.Schema;
@@ -35,20 +36,24 @@ namespace ChallengesWithTestsMark8
 
         public bool IsAscendingOrder(int[] numbers)
         {  
-            var result = false;
+            var result = true;
+            int? prevNum = null;
+            if (numbers == null || numbers.Length == 0) return false;
+             
             foreach(int number in numbers)
             {
-                if (number == null || number == 0 )
-                {
-                    result = false;
-                }
-                if (number >= number)
+               if(prevNum == null) 
                 { 
-                    result = true;
+                    prevNum = number;
+                    continue;
+                }
+               if(number <  prevNum)
+                {
+                    return false;
                 }
                 else
                 {
-                    result = false;
+                    prevNum = number;
                 }
             }
             return result;
@@ -57,11 +62,13 @@ namespace ChallengesWithTestsMark8
         public int SumElementsThatFollowAnEven(int[] numbers)
         {
             var result = 0;
-            for(var i = 0; i < numbers.Length; i++)
+            if(numbers == null || numbers.Length == 0) return result;
+            
+            for(var i = 0; i < numbers.Length - 1; i++)
             {
                 if (numbers[i] % 2 == 0)
                 {
-                    result = numbers[i]++;
+                    result += numbers[i + 1];
                 }
             }
             return result;
@@ -69,17 +76,47 @@ namespace ChallengesWithTestsMark8
 
         public string TurnWordsIntoSentence(string[] words)
         {
-            throw new NotImplementedException();
+            string str = "";
+            if(words ==  null || words.Length == 0) { return str; }
+           for(var i = 0; i < words.Length; i++)
+            { if (words[i].Trim() == "")
+                {
+                    continue;
+                }
+                var separator = i == words.Length - 1 ? "." : " ";
+                str += words[i].Trim() + separator;
+                
+            }
+           return str;
         }
 
         public double[] GetEveryFourthElement(List<double> elements)
         {
-            throw new NotImplementedException();
+            if (elements == null || elements.Count == 0)
+            {
+                return new double[0];
+            }
+            var fourthE = new List<double>();
+            for(var i = 3; i < elements.Count; i += 4)
+            {
+                    fourthE.Add(elements[i]);
+            }
+            return fourthE.ToArray();
         }
 
         public bool TwoDifferentElementsInArrayCanSumToTargetNumber(int[] nums, int targetNumber)
-        {
-            throw new NotImplementedException();
+        { 
+            for(var i = 0;i < nums.Length;i++) 
+            {
+                for(var j = i + 1;j < nums.Length;j++)
+                {
+                    if (nums[i] + nums[j] == targetNumber)
+                    {
+                        return true;
+                    }
+                }
+            }
+           return false;
         }
     }
 }

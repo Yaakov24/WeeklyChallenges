@@ -85,7 +85,7 @@ namespace ChallengesWithTestsMark8.Tests
         [InlineData("aaabbbcdddeee", 6)]
         [InlineData("aaabbbcdddeeeffg", 15)]
         [InlineData("abbbccdddeeeffgg", 0)]
-        public void LastUniqueIndex(string str, int expected)
+        public void IndexOfLastUniqueLetter(string str, int expected)
         {
             // Arrange
             ChallengesSet06 challenger = new ChallengesSet06();
